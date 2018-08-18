@@ -4,14 +4,14 @@ import (
 	"strings"
 	"testing"
 
-	"madscientists.co/attest"
+	"github.com/dscottboggs/attest"
 )
 
 func TestRandomAsciiPrintable(t *testing.T) {
 	test := attest.Test{t}
 	tChar := AsciiPrintable()
-	test.AttestGreaterThan(rune(32), tChar)
-	test.AttestLessThan(rune(127), tChar)
+	test.GreaterThan(rune(32), tChar)
+	test.LessThan(rune(127), tChar)
 }
 
 func BenchmarkRandomAsciiPrintable(b *testing.B) {
@@ -23,7 +23,7 @@ func BenchmarkRandomAsciiPrintable(b *testing.B) {
 func TestRandomAlphanumeric(t *testing.T) {
 	test := attest.Test{t}
 	tChar := Alphanumeric()
-	test.AttestGreaterThan(-1, strings.Index(alphanumeric, string(tChar)))
+	test.GreaterThan(-1, strings.Index(alphanumeric, string(tChar)))
 }
 func BenchmarkRandomAlphanumeric(b *testing.B) {
 	for i := 0; i < b.N; i++ {
@@ -34,19 +34,19 @@ func BenchmarkRandomAlphanumeric(b *testing.B) {
 func TestRandomString(t *testing.T) {
 	test := attest.Test{t}
 	tStr := String(20)
-	test.AttestEquals(20, len(tStr))
+	test.Equals(20, len(tStr))
 	for _, char := range tStr {
-		test.AttestGreaterThan(rune(32), char) // ASCII chars 0-32 and 127 are
-		test.AttestLessThan(rune(127), char)   // nonprintable characters.
+		test.GreaterThan(rune(32), char) // ASCII chars 0-32 and 127 are
+		test.LessThan(rune(127), char)   // nonprintable characters.
 	}
 }
 
 func TestRandomAlphanumericString(t *testing.T) {
 	test := attest.Test{t}
 	tStr := AlphanumericString(20)
-	test.AttestEquals(20, len(tStr))
+	test.Equals(20, len(tStr))
 	for _, char := range tStr {
-		test.AttestGreaterThan(-1, strings.Index(alphanumeric, string(char)))
+		test.GreaterThan(-1, strings.Index(alphanumeric, string(char)))
 	}
 }
 func BenchmarkRandomString(b *testing.B) {
