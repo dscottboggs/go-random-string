@@ -66,7 +66,7 @@ func AlphanumericString(length uint16) string {
 }
 
 //  from getWordList() of pwlen words separated by pwsep.
-func RandomWords(words uint8, sep string) (string, error) {
+func Words(words uint8, sep string) (string, error) {
 	wordlist, err := getWordList()
 	if err != nil {
 		return "", err
